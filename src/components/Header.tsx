@@ -1,20 +1,40 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, Bot, Cog, Zap, Shield, Building2, Headphones, FileText, Download, HelpCircle, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const navigation = [
-    { name: '首页', href: '/' },
-    { name: '产品中心', href: '/products' },
-    { name: '行业应用', href: '/applications' },
-    { name: '服务支持', href: '/support' },
-    { name: '新闻资讯', href: '/news' },
-    { name: '关于我们', href: '/about' },
+  const productMenu = [
+    { name: '人形机器人', href: '/products?category=humanoid', icon: Bot, desc: 'DR系列双足机器人' },
+    { name: '四足机器人', href: '/products?category=quadruped', icon: Cog, desc: 'Lite/X系列全地形机器人' },
+    { name: '轮腿机器人', href: '/products?category=wheel-leg', icon: Zap, desc: 'M系列混合运动平台' },
+    { name: '核心组件', href: '/products?category=components', icon: Shield, desc: '关节模组与控制系统' },
+  ];
+
+  const applicationMenu = [
+    { name: '电力巡检', href: '/applications/power-inspection', icon: Zap, desc: '智能电力设施巡检' },
+    { name: '工业检测', href: '/applications/industrial-inspection', icon: Building2, desc: '工业场景智能检测' },
+    { name: '应急救援', href: '/applications/emergency-rescue', icon: Shield, desc: '危险环境应急响应' },
+    { name: '安防巡逻', href: '/applications/security-patrol', icon: Shield, desc: '智能安防解决方案' },
+  ];
+
+  const supportMenu = [
+    { name: '技术文档', href: '/support#docs', icon: FileText, desc: '产品手册与API文档' },
+    { name: '下载中心', href: '/support#downloads', icon: Download, desc: '固件、工具与资料' },
+    { name: '帮助中心', href: '/support#help', icon: HelpCircle, desc: '常见问题与支持' },
+    { name: '联系我们', href: '/support#contact', icon: Mail, desc: '技术支持与咨询' },
   ];
 
   const isActive = (path: string) => {
@@ -34,22 +54,150 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={cn(
-                  'px-4 py-2 text-sm font-medium rounded-md transition-all duration-300',
-                  isActive(item.href)
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
+          <NavigationMenu className="hidden md:flex">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link
+                  to="/"
+                  className={cn(
+                    'inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                    isActive('/')
+                      ? 'text-primary bg-primary/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  )}
+                >
+                  首页
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger
+                  className={cn(
+                    isActive('/products') && 'text-primary bg-primary/10'
+                  )}
+                >
+                  产品中心
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="mega-menu-grid">
+                    {productMenu.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="mega-menu-item group"
+                      >
+                        <div className="mega-menu-icon">
+                          <item.icon className="h-5 w-5" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-medium text-foreground group-hover:text-primary transition-colors">
+                            {item.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger
+                  className={cn(
+                    isActive('/applications') && 'text-primary bg-primary/10'
+                  )}
+                >
+                  行业应用
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="mega-menu-grid">
+                    {applicationMenu.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="mega-menu-item group"
+                      >
+                        <div className="mega-menu-icon">
+                          <item.icon className="h-5 w-5" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-medium text-foreground group-hover:text-primary transition-colors">
+                            {item.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger
+                  className={cn(
+                    isActive('/support') && 'text-primary bg-primary/10'
+                  )}
+                >
+                  服务支持
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="mega-menu-grid">
+                    {supportMenu.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="mega-menu-item group"
+                      >
+                        <div className="mega-menu-icon">
+                          <item.icon className="h-5 w-5" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-medium text-foreground group-hover:text-primary transition-colors">
+                            {item.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link
+                  to="/news"
+                  className={cn(
+                    'inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                    isActive('/news')
+                      ? 'text-primary bg-primary/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  )}
+                >
+                  新闻资讯
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link
+                  to="/about"
+                  className={cn(
+                    'inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                    isActive('/about')
+                      ? 'text-primary bg-primary/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  )}
+                >
+                  关于我们
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
 
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
@@ -72,23 +220,86 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 animate-fade-in">
-            <div className="flex flex-col space-y-2">
-              {navigation.map((item) => (
+          <div className="md:hidden py-4 animate-fade-in border-t border-border">
+            <div className="flex flex-col space-y-1">
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300',
+                  isActive('/') ? 'text-primary bg-primary/10' : 'text-muted-foreground'
+                )}
+              >
+                首页
+              </Link>
+
+              <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                产品中心
+              </div>
+              {productMenu.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    'px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300',
-                    isActive(item.href)
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-                  )}
+                  className="px-6 py-2 text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
                 >
+                  <item.icon className="h-4 w-4" />
                   {item.name}
                 </Link>
               ))}
+
+              <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-2">
+                行业应用
+              </div>
+              {applicationMenu.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-6 py-2 text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.name}
+                </Link>
+              ))}
+
+              <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-2">
+                服务支持
+              </div>
+              {supportMenu.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-6 py-2 text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.name}
+                </Link>
+              ))}
+
+              <Link
+                to="/news"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 mt-2',
+                  isActive('/news') ? 'text-primary bg-primary/10' : 'text-muted-foreground'
+                )}
+              >
+                新闻资讯
+              </Link>
+
+              <Link
+                to="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300',
+                  isActive('/about') ? 'text-primary bg-primary/10' : 'text-muted-foreground'
+                )}
+              >
+                关于我们
+              </Link>
+
               <Button variant="hero" size="sm" className="mt-4">
                 联系我们
               </Button>
