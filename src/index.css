@@ -259,4 +259,98 @@ All colors MUST be HSL.
     box-shadow: 0 0 60px hsl(var(--primary) / 0.6), 
                 0 0 120px hsl(var(--primary) / 0.3);
   }
+
+  .shadow-glow {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.4), 
+                0 0 60px hsl(var(--primary) / 0.2);
+  }
+
+  /* 规格标签 */
+  .spec-pill {
+    @apply px-6 py-3 rounded-full bg-card/50 backdrop-blur-sm border border-border text-sm text-muted-foreground;
+    @apply hover:border-primary/50 hover:text-foreground hover:shadow-glow transition-all duration-300;
+  }
+
+  /* Feature Bento Grid for Product Detail */
+  .feature-bento-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .feature-bento-item {
+    @apply relative p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border;
+    @apply hover:border-primary/50 hover:shadow-glow-lg transition-all duration-500;
+    @apply hover:-translate-y-2 cursor-pointer overflow-hidden;
+    animation: fade-in 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .feature-icon-wrapper {
+    @apply w-16 h-16 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center;
+    @apply group-hover:bg-primary/20 group-hover:border-primary/50 group-hover:shadow-glow transition-all duration-300;
+  }
+
+  .feature-bento-glow {
+    @apply absolute -inset-1 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 rounded-2xl opacity-0;
+    @apply group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10;
+  }
+
+  /* Video Detail Cards */
+  .video-detail-card {
+    @apply relative rounded-xl overflow-hidden;
+    @apply border border-border hover:border-primary/50 transition-all duration-500;
+    @apply hover:shadow-glow-lg hover:-translate-y-1;
+  }
+
+  .video-card-glow {
+    @apply absolute -inset-1 bg-gradient-to-r from-blue-500/0 via-primary/30 to-purple-500/0 rounded-xl opacity-0;
+    @apply group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10;
+  }
+
+  /* Parameter Display Section */
+  .param-image-container {
+    @apply relative;
+  }
+
+  .param-image-wrapper {
+    @apply relative aspect-square rounded-2xl overflow-hidden border border-primary/30;
+    @apply hover:border-primary/50 transition-all duration-500;
+    @apply hover:scale-105 hover:rotate-1;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .param-item {
+    @apply relative p-6 rounded-xl bg-card/20 backdrop-blur-sm border border-border/50;
+    @apply hover:bg-card/40 hover:border-primary/30 hover:shadow-glow transition-all duration-300;
+    @apply hover:-translate-x-2 cursor-default;
+    animation: slide-in-right 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  .param-item-line {
+    @apply absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-primary to-purple-500;
+    @apply group-hover:w-full transition-all duration-500;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
