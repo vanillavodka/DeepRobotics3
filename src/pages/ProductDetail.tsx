@@ -211,54 +211,67 @@ const ProductDetail = () => {
         </div>
       </section>
 
-      {/* Detailed Parameters with 3D Layout */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Detailed Parameters with Holographic Scan Style */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-b from-background via-primary/5 to-background">
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="scan-line"></div>
         
         <div className="relative mx-auto max-w-7xl">
           <h2 className="text-4xl font-bold text-foreground mb-4 text-center">技术参数</h2>
           <p className="text-muted-foreground text-center mb-16">精密设计，卓越性能</p>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Product Image with 3D Effect */}
-            <div className="param-image-container group">
-              <div className="param-image-wrapper">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-purple-500/30 blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
+          {/* Central Product Display with Floating Parameters */}
+          <div className="relative max-w-5xl mx-auto">
+            {/* Central Product Image with Holographic Effect */}
+            <div className="holographic-container group">
+              <div className="holographic-glow"></div>
+              <div className="holographic-grid"></div>
+              <div className="relative z-10 aspect-square max-w-2xl mx-auto">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="relative z-10 w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-contain holographic-image"
                 />
               </div>
-            </div>
-
-            {/* Parameters Grid */}
-            <div className="space-y-4">
-              {product.detailedSpecs.map((spec, index) => (
-                <div
-                  key={index}
-                  className="param-item group"
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground font-medium">{spec.label}</span>
-                    <span className="text-foreground font-bold text-lg">{spec.value}</span>
+              
+              {/* Floating Parameter Cards */}
+              <div className="parameter-constellation">
+                {product.detailedSpecs.map((spec, index) => (
+                  <div
+                    key={index}
+                    className="floating-param-card"
+                    style={{
+                      animationDelay: `${index * 0.1}s`,
+                      '--float-delay': `${index * 0.3}s`,
+                      '--card-index': index,
+                    } as React.CSSProperties}
+                  >
+                    <div className="floating-param-inner">
+                      <div className="param-label">{spec.label}</div>
+                      <div className="param-value">{spec.value}</div>
+                      <div className="param-card-glow"></div>
+                    </div>
                   </div>
-                  <div className="param-item-line"></div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Quick Specs Pills */}
-          <div className="mt-16 flex flex-wrap gap-4 justify-center">
+          {/* Quick Specs Grid */}
+          <div className="mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {product.specs.map((spec, index) => (
               <div
                 key={index}
-                className="spec-pill animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="tech-spec-card group"
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
-                {spec}
+                <div className="tech-spec-inner">
+                  <div className="tech-spec-corner tl"></div>
+                  <div className="tech-spec-corner tr"></div>
+                  <div className="tech-spec-corner bl"></div>
+                  <div className="tech-spec-corner br"></div>
+                  <span className="relative z-10">{spec}</span>
+                </div>
               </div>
             ))}
           </div>

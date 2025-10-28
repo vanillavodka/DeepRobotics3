@@ -306,30 +306,191 @@ All colors MUST be HSL.
     @apply group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10;
   }
 
-  /* Parameter Display Section */
-  .param-image-container {
-    @apply relative;
+  /* Holographic Parameter Display */
+  .holographic-container {
+    @apply relative py-20;
+    perspective: 1500px;
   }
 
-  .param-image-wrapper {
-    @apply relative aspect-square rounded-2xl overflow-hidden border border-primary/30;
-    @apply hover:border-primary/50 transition-all duration-500;
-    @apply hover:scale-105 hover:rotate-1;
-    transform-style: preserve-3d;
-    perspective: 1000px;
+  .holographic-glow {
+    @apply absolute inset-0 opacity-30;
+    background: radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.4), transparent 70%);
+    animation: pulse-glow 3s ease-in-out infinite;
   }
 
-  .param-item {
-    @apply relative p-6 rounded-xl bg-card/20 backdrop-blur-sm border border-border/50;
-    @apply hover:bg-card/40 hover:border-primary/30 hover:shadow-glow transition-all duration-300;
-    @apply hover:-translate-x-2 cursor-default;
-    animation: slide-in-right 0.5s ease-out forwards;
+  .holographic-grid {
+    @apply absolute inset-0 opacity-20;
+    background-image: 
+      linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-scroll 20s linear infinite;
+  }
+
+  .holographic-image {
+    animation: float-gentle 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px hsl(var(--primary) / 0.5));
+  }
+
+  /* Scanning Line Effect */
+  .scan-line {
+    @apply absolute left-0 w-full h-0.5 z-20 pointer-events-none;
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--primary) / 0.8), 
+      transparent
+    );
+    animation: scan 4s ease-in-out infinite;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.8);
+  }
+
+  /* Floating Parameter Cards */
+  .parameter-constellation {
+    @apply absolute inset-0 pointer-events-none;
+  }
+
+  .floating-param-card {
+    @apply absolute pointer-events-auto;
+    animation: float-appear 0.8s ease-out forwards, float-gentle 6s ease-in-out infinite;
     opacity: 0;
   }
 
-  .param-item-line {
-    @apply absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-primary to-purple-500;
-    @apply group-hover:w-full transition-all duration-500;
+  .floating-param-card:nth-child(1) { top: 10%; left: 5%; }
+  .floating-param-card:nth-child(2) { top: 15%; right: 8%; }
+  .floating-param-card:nth-child(3) { top: 35%; left: 2%; }
+  .floating-param-card:nth-child(4) { top: 40%; right: 5%; }
+  .floating-param-card:nth-child(5) { top: 60%; left: 8%; }
+  .floating-param-card:nth-child(6) { top: 65%; right: 10%; }
+  .floating-param-card:nth-child(7) { bottom: 15%; left: 12%; }
+  .floating-param-card:nth-child(8) { bottom: 10%; right: 15%; }
+
+  .floating-param-inner {
+    @apply relative px-6 py-4 rounded-xl backdrop-blur-md;
+    @apply bg-card/80 border border-primary/30;
+    @apply transition-all duration-300;
+    min-width: 200px;
+  }
+
+  .floating-param-card:hover .floating-param-inner {
+    @apply border-primary bg-card shadow-2xl scale-110;
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.4);
+  }
+
+  .param-label {
+    @apply text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1;
+  }
+
+  .param-value {
+    @apply text-lg font-bold text-foreground;
+    background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--primary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .param-card-glow {
+    @apply absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.2), hsl(var(--primary) / 0));
+    filter: blur(10px);
+  }
+
+  .floating-param-card:hover .param-card-glow {
+    @apply opacity-100;
+  }
+
+  /* Tech Spec Cards */
+  .tech-spec-card {
+    @apply relative;
+    animation: fade-in 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  .tech-spec-inner {
+    @apply relative px-4 py-3 rounded-lg;
+    @apply bg-card/50 backdrop-blur-sm border border-primary/20;
+    @apply text-sm font-medium text-foreground text-center;
+    @apply transition-all duration-300;
+    clip-path: polygon(
+      8px 0, 100% 0, 100% calc(100% - 8px), 
+      calc(100% - 8px) 100%, 0 100%, 0 8px
+    );
+  }
+
+  .tech-spec-card:hover .tech-spec-inner {
+    @apply border-primary bg-card/80 shadow-lg;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px hsl(var(--primary) / 0.3);
+  }
+
+  .tech-spec-corner {
+    @apply absolute w-2 h-2 border-primary transition-all duration-300;
+    opacity: 0;
+  }
+
+  .tech-spec-corner.tl {
+    @apply top-0 left-0 border-t-2 border-l-2;
+  }
+
+  .tech-spec-corner.tr {
+    @apply top-0 right-0 border-t-2 border-r-2;
+  }
+
+  .tech-spec-corner.bl {
+    @apply bottom-0 left-0 border-b-2 border-l-2;
+  }
+
+  .tech-spec-corner.br {
+    @apply bottom-0 right-0 border-b-2 border-r-2;
+  }
+
+  .tech-spec-card:hover .tech-spec-corner {
+    opacity: 1;
+  }
+
+  .tech-spec-card:hover .tech-spec-corner.tl,
+  .tech-spec-card:hover .tech-spec-corner.br {
+    @apply w-4 h-4;
+  }
+
+  .tech-spec-card:hover .tech-spec-corner.tr,
+  .tech-spec-card:hover .tech-spec-corner.bl {
+    @apply w-3 h-3;
+  }
+
+  /* Animations */
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.05); }
+  }
+
+  @keyframes grid-scroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+  }
+
+  @keyframes scan {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  @keyframes float-appear {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes float-gentle {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-10px) translateX(5px); }
+    50% { transform: translateY(-5px) translateX(-5px); }
+    75% { transform: translateY(-15px) translateX(3px); }
   }
 
   @keyframes fade-in {
