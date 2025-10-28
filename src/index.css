@@ -175,4 +175,88 @@ All colors MUST be HSL.
     @apply bg-primary/20;
     box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
   }
+
+  /* 六边形蜂窝布局 */
+  .hexagon-grid {
+    @apply grid gap-8 p-8;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .hexagon-item {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .hexagon-content {
+    @apply relative h-full p-8 rounded-2xl transition-all duration-500 overflow-hidden;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .hexagon-content:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: hsl(var(--primary));
+    box-shadow: 0 20px 40px -10px hsl(var(--primary) / 0.3);
+  }
+
+  /* 视频展示卡片 */
+  .video-showcase-item {
+    @apply relative;
+    animation: fadeIn 0.6s ease-out forwards;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .video-showcase-item:hover {
+    transform: translateZ(20px);
+  }
+
+  /* 产品参数3D翻转卡片 */
+  .product-spec-card {
+    perspective: 1000px;
+    height: 500px;
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .product-spec-inner {
+    @apply relative w-full h-full;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  .product-spec-card:hover .product-spec-inner {
+    transform: rotateY(180deg);
+  }
+
+  .product-spec-front,
+  .product-spec-back {
+    @apply absolute inset-0 rounded-2xl overflow-hidden;
+    backface-visibility: hidden;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+  }
+
+  .product-spec-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card) / 0.8) 100%);
+  }
+
+  /* 网格背景 */
+  .bg-grid-pattern {
+    background-image: linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* 径向渐变背景 */
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, hsl(var(--primary) / 0.1) 0%, transparent 70%);
+  }
+
+  /* 发光效果 */
+  .shadow-glow-lg {
+    box-shadow: 0 0 60px hsl(var(--primary) / 0.6), 
+                0 0 120px hsl(var(--primary) / 0.3);
+  }
 }
