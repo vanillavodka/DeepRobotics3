@@ -514,4 +514,96 @@ All colors MUST be HSL.
       transform: translateX(0);
     }
   }
+
+  /* Contact Page Styles */
+  .contact-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: hsl(var(--primary));
+    border-radius: 50%;
+    animation: float-up linear infinite;
+    box-shadow: 0 0 10px hsl(var(--primary));
+  }
+
+  @keyframes float-up {
+    0% {
+      transform: translateY(100vh) scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  .contact-nav-card {
+    @apply relative flex items-center gap-6 p-8 rounded-2xl border-2 border-border bg-card/50 backdrop-blur-sm overflow-hidden;
+    @apply hover:border-primary hover:shadow-glow transition-all duration-300;
+  }
+
+  .contact-nav-icon-wrapper {
+    @apply flex items-center justify-center w-16 h-16 rounded-xl bg-primary/10 text-primary;
+    @apply group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300;
+  }
+
+  .contact-external-card {
+    @apply relative flex flex-col items-center justify-center p-12 rounded-3xl border-2 border-border bg-card/30 backdrop-blur-sm overflow-hidden;
+    @apply hover:border-primary transition-all duration-500 text-center;
+    min-height: 300px;
+  }
+
+  .contact-external-glow {
+    @apply absolute inset-0 bg-gradient-radial from-primary/20 via-transparent to-transparent opacity-0;
+    @apply group-hover:opacity-100 transition-opacity duration-500;
+  }
+
+  .contact-select {
+    @apply bg-background/50 backdrop-blur-sm;
+  }
+
+  .product-display-card {
+    @apply relative p-8 rounded-3xl border-2 border-border bg-card/30 backdrop-blur-sm overflow-hidden;
+    @apply animate-fade-in;
+  }
+
+  .product-display-glow {
+    @apply absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-0;
+    @apply group-hover:opacity-100 transition-opacity duration-700;
+  }
+
+  .spec-badge {
+    @apply px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20;
+    @apply hover:bg-primary hover:text-primary-foreground transition-colors duration-300;
+  }
+
+  .contact-form-card {
+    @apply relative p-8 md:p-12 rounded-3xl border-2 border-border bg-card/30 backdrop-blur-sm overflow-hidden;
+  }
+
+  .contact-form-glow {
+    @apply absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5;
+  }
+
+  .contact-input {
+    @apply bg-background/50 backdrop-blur-sm;
+  }
+
+  .contact-submit-btn {
+    @apply bg-gradient-to-r from-primary to-accent hover:shadow-glow-lg;
+  }
+
+  .contact-email-card {
+    @apply relative max-w-2xl mx-auto p-12 rounded-3xl border-2 border-primary/30 bg-card/30 backdrop-blur-sm overflow-hidden;
+  }
+
+  .contact-email-glow {
+    @apply absolute inset-0 bg-gradient-radial from-primary/20 via-transparent to-transparent animate-pulse;
+  }
 }

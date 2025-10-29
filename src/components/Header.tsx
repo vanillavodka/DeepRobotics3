@@ -192,8 +192,22 @@ const Header = () => {
                       ? 'text-primary bg-primary/10'
                       : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
                   )}
+              >
+                关于我们
+              </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link
+                  to="/contact"
+                  className={cn(
+                    'inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                    isActive('/contact')
+                      ? 'text-primary bg-primary/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  )}
                 >
-                  关于我们
+                  联系我们
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -204,9 +218,11 @@ const Header = () => {
             <button className="p-2 text-muted-foreground hover:text-primary transition-colors">
               <Search className="h-5 w-5" />
             </button>
-            <Button variant="hero" size="sm" className="hidden md:inline-flex">
-              联系我们
-            </Button>
+            <Link to="/contact">
+              <Button variant="hero" size="sm" className="hidden md:inline-flex">
+                联系我们
+              </Button>
+            </Link>
 
             {/* Mobile menu button */}
             <button
@@ -300,9 +316,16 @@ const Header = () => {
                 关于我们
               </Link>
 
-              <Button variant="hero" size="sm" className="mt-4">
+              <Link
+                to="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300',
+                  isActive('/contact') ? 'text-primary bg-primary/10' : 'text-muted-foreground'
+                )}
+              >
                 联系我们
-              </Button>
+              </Link>
             </div>
           </div>
         )}
