@@ -185,6 +185,20 @@ const Header = () => {
 
               <NavigationMenuItem>
                 <Link
+                  to="/interactive-product-2"
+                  className={cn(
+                    'inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                    isActive('/interactive-product-2')
+                      ? 'text-primary bg-primary/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  )}
+                >
+                  产品说明2
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link
                   to="/news"
                   className={cn(
                     'inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors',
@@ -317,6 +331,17 @@ const Header = () => {
                 )}
               >
                 产品说明
+              </Link>
+
+              <Link
+                to="/interactive-product-2"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300',
+                  isActive('/interactive-product-2') ? 'text-primary bg-primary/10' : 'text-muted-foreground'
+                )}
+              >
+                产品说明2
               </Link>
 
               <Link

@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import InteractiveProduct from "./pages/InteractiveProduct";
+import InteractiveProduct2 from "./pages/InteractiveProduct2";
 import Applications from "./pages/Applications";
 import ApplicationDetail from "./pages/ApplicationDetail";
 import Support from "./pages/Support";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/interactive-product" element={<InteractiveProduct />} />
+          <Route path="/interactive-product-2" element={<InteractiveProduct2 />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/:id" element={<ApplicationDetail />} />
           <Route path="/support" element={<Support />} />
